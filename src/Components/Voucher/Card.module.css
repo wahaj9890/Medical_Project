@@ -1,0 +1,21 @@
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.frmSection {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 61px;
+  box-shadow: 0px 0px 3px rgb(0 0 0 / 50%), 0px 6px 3px rgb(0 0 0 / 50%);
+  border-radius: 8px;
+}
+.item {
+  margin: 20px 0;
+
+  padding: 15px;
+  box-shadow: 0px 2px 7px 0px rgb(22 14 14);
+}

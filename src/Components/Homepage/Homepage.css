@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #343434;
+  margin-top: auto;
+}
+.container {
+  flex-direction: row !important;
+  display: flex !important;
+  justify-content: space-evenly !important;
+  padding: 20px !important;
+  margin-top: auto;
+}

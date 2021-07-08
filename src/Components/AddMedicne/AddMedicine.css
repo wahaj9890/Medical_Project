@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.addImg {
+  background: url("../Images/addImage.jpg") no-repeat center center/cover;
+}
+.addMedicine-form {
+  width: 500px;
+  padding: 30px;
+  border: 2px solid #fff;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  margin: 30px;
+  box-shadow: 0px 2px 8px;
+  border-radius: 21px;
+}
+.addMedicine-label {
+  padding: 10px;
+  font-size: 20px;
+  /* color: #fff; */
+  /* color: #698067; comment yesterday */
+  color: black;
+  /* font-weight: 100; */
+  font-weight: 500;
+}
+.addMedicine-input {
+  border: none;
+  outline: 0;
+  border-radius: 7px;
+  padding: 4px 8px;
+  background: transparent;
+  border-bottom: 2px solid;
+  width: 100%;
+  color: black;
+}
+.addMedicine-buttons {
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.addMedicine-btn {
+  padding: 5px 20px;
+  border: none;
+  outline: 0;
+  color: #fff;
+  background: #007aff;
+  cursor: pointer;
+  border-radius: 8px;
+}
+h2 {
+  color: #fff;
+}

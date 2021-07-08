@@ -1,0 +1,34 @@
+.showList-table {
+  box-shadow: 0px 0px 3px rgb(0 0 0 / 50%), 0px 6px 3px rgb(0 0 0 / 50%);
+}
+
+.tblContainer {
+  height: 485px !important;
+  /* background: url("../Images/homeImg2.jpg") no-repeat center center/cover; */
+}
+.showListTbl {
+  max-height: 450px;
+  overflow: scroll;
+  box-shadow: 0px 2px 8px;
+  background: #fff;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #fff;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 0, 0, 0.4);
+}
