@@ -29,7 +29,7 @@ function Items() {
         <Link to="/ShowList">Medicine List</Link>
       </li>
       <li>
-        <Link to="/Logout">Logout/Exit</Link>
+        <Link to="/Report">Report</Link>
       </li>
     </ul>
   );

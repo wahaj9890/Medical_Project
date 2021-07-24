@@ -1,10 +1,37 @@
 import React, { useState, useEffect } from "react";
 import "./purchasetable.css";
 import CancelIcon from "@material-ui/icons/Cancel";
+import axios from "axios";
+//Current Date
+
+let currentDate = new Date();
+const todayDate =
+  currentDate.getFullYear() +
+  "-" +
+  (currentDate.getMonth() + 1) +
+  "-" +
+  currentDate.getDate();
+
+//Invice Number
+const date = new Date();
+const firsNum = Math.floor(Math.random() * 49 + 1);
+const invoice = `${firsNum}${date.getDate()}${date.getHours()}${date.getMonth()}${date.getSeconds()}${date.getMinutes()}
+  `;
 
 function Purchasetable({ cartList, removeItemDetails, ref }) {
   const [totalAmount, setTotalAmount] = useState();
   const [purchaseDetail, setPurchaseDetail] = useState(cartList);
+  const [header, setHeader] = useState({
+    customerName: "",
+    customerAge: "",
+    customerGender: "",
+    customerAddress: "",
+    customerDr: "",
+    customerPhone: "",
+    // invoiceNumber: "",
+    // totalBill: "",
+    customerDate: todayDate,
+  });
 
   useEffect(() => {
     setPurchaseDetail(cartList);
@@ -15,25 +42,36 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
   };
   const totalValue = (e) => {
     e.preventDefault();
-    console.log(purchaseDetail);
-  };
 
+    let data = { invoiceNumber: invoice, totalBill: totalAmount };
+    // let temp = header.concat(data);
+    let temp = { ...header, ...data };
+    debugger;
+    console.log(temp);
+    setHeader(temp);
+    // setHeader((prev) =>return { ...prev, });
+    console.log(header);
+
+    axios.post("http://localhost:8080/addToDb", temp);
+  };
+  console.log(invoice);
+  console.log(header);
   const totalCalculate = () => {
     let temAmt = [];
     temAmt = cartList.map((item) => {
       return item.amount;
     });
-
     setTotalAmount(temAmt.reduce(myFunc, 0));
   };
 
-  //Current Date
-  const toDayDate = new Date().toLocaleDateString();
-  //Invice Number
-  const date = new Date();
-  const firsNum = Math.floor(Math.random() * 49 + 1);
-  const invoice = `${firsNum}${date.getDate()}${date.getHours()}${date.getMonth()}${date.getSeconds()}${date.getMinutes()}
-  `;
+  //header in db
+  const onChangeHandler = (e) => {
+    setHeader({
+      ...header,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <>
       <form
@@ -50,7 +88,7 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
               <address>
                 Chaitanya Nagar, Airport Road, Nanded,431605.
                 <div>
-                  Phone No.<span>+91 8149757798</span>
+                  Phone No.<span>+91 1234567890</span>
                 </div>
               </address>
             </div>
@@ -58,7 +96,7 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
           <div className="invoiceHeading">
             <h1>Medical Invoice</h1>
             <p className="fw-bold">
-              Date:<span>{toDayDate}</span>
+              Date:<span>{todayDate}</span>
             </p>
             <p className="fw-bold">
               Invoice Number:<span> INV{invoice}</span>
@@ -73,19 +111,39 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
             <tr className="billRowsCols">
               <td className="billRowsCols fw-bold">Name</td>
               <td className="billRowsCols">
-                <input type="text" className="inputStyle" />
+                <input
+                  type="text"
+                  className="inputStyle"
+                  name="customerName"
+                  value={header.customerName}
+                  onChange={(e) => {
+                    onChangeHandler(e);
+                  }}
+                />
               </td>
               <td className="billRowsCols fw-bold">Age</td>
               <td className="billRowsCols">
-                <input type="text" className="inputStyle" />
+                <input
+                  type="text"
+                  className="inputStyle"
+                  name="customerAge"
+                  value={header.customerAge}
+                  onChange={(e) => {
+                    onChangeHandler(e);
+                  }}
+                />
               </td>
               <td className="billRowsCols fw-bold">Gender</td>
               <td className="billRowsCols genderStyle">
                 <div>
                   <input
                     type="radio"
-                    name="gender"
-                    value="male"
+                    name="customerGender"
+                    value="Male"
+                    checked={header.customerGender === "Male"}
+                    onChange={(e) => {
+                      onChangeHandler(e);
+                    }}
                     className="inputStyle"
                   />
                   Male
@@ -93,8 +151,12 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
                 <div>
                   <input
                     type="radio"
-                    name="gender"
+                    name="customerGender"
                     value="Female"
+                    checked={header.customerGender === "Female"}
+                    onChange={(e) => {
+                      onChangeHandler(e);
+                    }}
                     className="inputStyle"
                   />
                   Female
@@ -104,11 +166,39 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
             <tr className="billRowsCols">
               <td className="billRowsCols fw-bold">Address</td>
               <td className="billRowsCols">
-                <textarea className="customerAddress inputStyle"></textarea>
+                <textarea
+                  className="customerAddress inputStyle"
+                  name="customerAddress"
+                  value={header.customerAddress}
+                  onChange={(e) => {
+                    onChangeHandler(e);
+                  }}
+                ></textarea>
+              </td>
+
+              <td className="billRowsCols fw-bold">Doctor Name</td>
+              <td className="billRowsCols">
+                <input
+                  type="text"
+                  className="inputStyle"
+                  name="customerDr"
+                  value={header.customerDr}
+                  onChange={(e) => {
+                    onChangeHandler(e);
+                  }}
+                />
               </td>
               <td className="billRowsCols fw-bold">Phone No.</td>
               <td className="billRowsCols">
-                <input type="text" className="inputStyle" />
+                <input
+                  type="text"
+                  className="inputStyle"
+                  name="customerPhone"
+                  value={header.customerPhone}
+                  onChange={(e) => {
+                    onChangeHandler(e);
+                  }}
+                />
               </td>
             </tr>
           </thead>
@@ -169,6 +259,9 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
                 </tr>
               )}
             </table>
+            <button className="printBtn" disabled>
+              Add in DB
+            </button>
           </div>
         )}
         {cartList.length === 0 && (
@@ -176,9 +269,6 @@ function Purchasetable({ cartList, removeItemDetails, ref }) {
             There is no record found!!!
           </div>
         )}
-        {/* <div className="printCls">
-          <button className="printBtn">Print</button>
-        </div> */}
       </form>
     </>
   );

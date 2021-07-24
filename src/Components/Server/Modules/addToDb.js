@@ -2,9 +2,10 @@ const express = require("express");
 const con = require("../CreateConnection/createConnection");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  con.query("select * from addmedicinetbl", (err, result) => {
-    console.log(result);
+router.post("/", (req, res) => {
+  const data = req.body;
+
+  con.query("insert into purchasetbl set? ", data, (err, result, fields) => {
     res.send(result);
   });
 });

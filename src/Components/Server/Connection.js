@@ -11,7 +11,8 @@ const searchName = require("./Modules/searchName");
 const fetchPopupDetails = require("./Modules/fetchPopupDetails");
 const sellMedicine = require("./Modules/sellMedicine");
 const updateMedicine = require("./Modules/updateMedicine");
-
+const addToDb = require("./Modules/addToDb");
+const getReport = require("./Modules/getReport");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -23,6 +24,8 @@ app.use("/searchName", searchName);
 app.use("/fetchPopupDetails", fetchPopupDetails);
 app.use("/sellMedicine", sellMedicine);
 app.use("/updateMedicine", updateMedicine);
+app.use("/addToDb", addToDb);
+app.use("/getReport", getReport);
 
 app.listen(8080, () => {
   console.log("Server listening on 8080");

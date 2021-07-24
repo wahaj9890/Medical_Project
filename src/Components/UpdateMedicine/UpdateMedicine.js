@@ -9,6 +9,7 @@ const initialValues = [
     typeOfMedicine: "",
     companyName: "",
     purchaseQty: "",
+    operation: "",
   },
 ];
 
@@ -16,6 +17,7 @@ function UpdateMedicine() {
   const [codeNumber, setCodeNumber] = useState("");
   const [getDetail, setGetDetail] = useState(initialValues);
   const [getQuantity, setGetQuantity] = useState("");
+  const [operation, setOperation] = useState("Update");
 
   const getData = async () => {
     await axios.get("http://localhost:8080/getMedicineDetails").then((res) => {
@@ -33,13 +35,24 @@ function UpdateMedicine() {
 
   const updateMedicine = async (e) => {
     e.preventDefault();
+
     const tempUpdateQty = parseInt(getDetail[0].purchaseQty);
     if (parseInt(getQuantity) > 0) {
-      const updateQty = tempUpdateQty + parseInt(getQuantity);
-      const data = {
-        quantity: updateQty,
-        medicineCode: getDetail[0].medicineCode,
-      };
+      if (operation === "Update") {
+        const updateQty = tempUpdateQty + parseInt(getQuantity);
+        var data = {
+          quantity: updateQty,
+          medicineCode: getDetail[0].medicineCode,
+        };
+      } else if (operation === "remove") {
+        if (getQuantity <= tempUpdateQty) {
+          const updateQty = tempUpdateQty - parseInt(getQuantity);
+          var data = {
+            quantity: updateQty,
+            medicineCode: getDetail[0].medicineCode,
+          };
+        }
+      }
       await axios.post("http://localhost:8080/updateMedicine", data);
       alert("Quantity Updated");
       setGetDetail(initialValues);
@@ -100,6 +113,19 @@ function UpdateMedicine() {
           className="removeMedicine-input"
           readOnly
         />
+        <label htmlFor="medicineOperation" className="removeMedicine-label">
+          Select Option
+        </label>
+        <select
+          className="removeMedicine-input"
+          value={operation}
+          onChange={(e) => {
+            setOperation(e.target.value);
+          }}
+        >
+          <option value="Update">Update/Add</option>
+          <option value="remove">Remove</option>
+        </select>
         <label htmlFor="medicineQty" className="removeMedicine-label">
           Enter Quantity
         </label>
